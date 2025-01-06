@@ -85,12 +85,10 @@ public boolean addFollowee(String name) {
                fCount--;
                indexToRemove = i;
             }
-            
         }
     if (indexToRemove == -1) {
         return false;
     }
-
     for (int i = indexToRemove; i < this.follows.length - 1; i++) {
         follows[i] = follows[i + 1];
     }
@@ -100,12 +98,29 @@ public boolean addFollowee(String name) {
             
     }
 
-    /** Counts the number of users that both this user and the other user follow.
-    /*  Notice: This is the size of the intersection of the two follows lists. */
-    public int countMutual(User other) {
-         //// Replace the following statement with your code
+/** Counts the number of users that both this user and the other user follow.
+ *  Notice: This is the size of the intersection of the two follows lists. */
+public int countMutual(User other) {
+    int countMutual = 0;
+
+    if (this.follows == null || other.follows == null) {
         return 0;
     }
+
+    for (int i = 0; i < this.fCount; i++) { 
+        if (this.follows[i] != null) { 
+            for (int j = 0; j < other.fCount; j++) {
+                if (other.follows[j] != null && this.follows[i].equals(other.follows[j])) {
+                    countMutual++; 
+                    break; 
+                }
+            }
+        }
+    }
+
+    return countMutual;
+}
+
 
     /** Checks is this user is a friend of the other user.
      *  (if two users follow each other, they are said to be "friends.") */
