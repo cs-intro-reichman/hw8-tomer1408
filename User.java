@@ -125,7 +125,14 @@ public int countMutual(User other) {
     /** Checks is this user is a friend of the other user.
      *  (if two users follow each other, they are said to be "friends.") */
     public boolean isFriendOf(User other) {
-        //// Replace the following statement with your code
+      for (int i = 0; i < fCount; i++) {
+        if(follows[i] != null && follows[i].equals(other.name))
+        for (int j = 0; j < other.fCount; j++) {
+            if(follows[j] != null && follows[j].equals(other.name))
+            return true;
+          }
+       
+      }
         return false;
     }
     /** Returns this user's name, and the names that s/he follows. */
