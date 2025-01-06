@@ -25,13 +25,18 @@ public class Network {
     public int getUserCount() {
         return this.userCount;
     }
-    /** Finds in this network, and returns, the user that has the given name.
-     *  If there is no such user, returns null.
-     *  Notice that the method receives a String, and returns a User object. */
-    public User getUser(String name) {
-        //// Replace the following statement with your code
-        return null;
+/** Finds in this network, and returns, the user that has the given name.
+ *  If there is no such user, returns null.
+ *  Notice that the method receives a String, and returns a User object. */
+public User getUser(String name) {
+    for (int i = 0; i < users.length; i++) {
+        if (users[i] != null && users[i].getName().toLowerCase().equals(name.toLowerCase())) {
+            return users[i];    
+        }
     }
+    return null;
+}
+
 
     /** Adds a new user with the given name to this network.
     *  If ths network is full, does nothing and returns false;
@@ -71,9 +76,14 @@ public class Network {
         return 0;
     }
 
-    // Returns a textual description of all the users in this network, and who they follow.
-    public String toString() {
-       //// Replace the following statement with your code
-       return null;
+ // Returns a textual description of all the users in this network, and who they follow.
+
+public String toString() {
+    String ans = "Network:";
+    for (int i = 0; i < userCount; i++) {
+        ans = ans + "\n" + users[i].toString() ;
     }
+   return ans;
+}
+
 }
