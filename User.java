@@ -44,26 +44,60 @@
     /** If this user follows the given name, returns true; otherwise returns false. */
     public boolean follows(String name) {
         for (int i = 0; i < this.follows.length; i++) {
-            if(follows[i] != null && follows[i].equals(name)){
+            if(follows[i] != null && follows[i].toLowerCase().equals(name.toLowerCase())){
                 return true;    
         }
         
         }
         return false;
     }
-    /** Makes this user follow the given name. If successful, returns true. 
-     *  If this user already follows the given name, or if the follows list is full, does nothing and returns false; */
-    public boolean addFollowee(String name) {
-        
-        
-        return false;
+ /** Makes this user follow the given name. If successful, returns true. 
+ *  If this user already follows the given name, or if the follows list is full, does nothing and returns false. */
+public boolean addFollowee(String name) {
+    if (name == null ) {
+        return false; 
     }
+    for (int i = 0; i < this.follows.length; i++) {
+        if (follows[i] != null && follows[i].toLowerCase().equals(name.toLowerCase())) {
+            return false; 
+        }
+    }
+    if (fCount >= follows.length) {
+        return false; 
+    }
+
+    follows[fCount] = name;
+    fCount++;
+    return true;
+}
+
 
     /** Removes the given name from the follows list of this user. If successful, returns true.
      *  If the name is not in the list, does nothing and returns false. */
     public boolean removeFollowee(String name) {
-        //// Replace the following statement with your code
+        int indexToRemove = -1;
+        if (name == null ) {
+            return false; 
+        }
+        for (int i = 0; i < this.follows.length; i++) {
+            if (follows[i] != null && follows[i].toLowerCase().equals(name.toLowerCase())) {
+               this.follows[i] = null;
+               fCount--;
+               indexToRemove = i;
+            }
+            
+        }
+    if (indexToRemove == -1) {
         return false;
+    }
+
+    for (int i = indexToRemove; i < this.follows.length - 1; i++) {
+        follows[i] = follows[i + 1];
+    }
+    follows[this.follows.length - 1] = null;
+    return true;
+
+            
     }
 
     /** Counts the number of users that both this user and the other user follow.
@@ -88,3 +122,9 @@
         return ans;
     }
 }
+
+
+
+
+
+   
