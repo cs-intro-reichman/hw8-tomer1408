@@ -95,23 +95,51 @@ public User getUser(String name) {
     /** For the user with the given name, recommends another user to follow. The recommended user is
      *  the user that has the maximal mutual number of followees as the user with the given name. */
     public String recommendWhoToFollow(String name) {
-        //// Replace the following statement with your code
+     
         return null;
     }
 
     /** Computes and returns the name of the most popular user in this network: 
      *  The user who appears the most in the follow lists of all the users. */
     public String mostPopularUser() {
-        //// Replace the following statement with your code
-        return null;
+        String mostPopularUser =  users[0].getName();
+        int i = 1;
+        while ( i < userCount) {
+            if(users[i] == null){
+                return null; 
+            }
+            if(followeeCount(users[i].getName())>followeeCount(users[i-1].getName())){
+                mostPopularUser = users[i].getName();
+                i++;
+            }
+
+            return mostPopularUser;
+        }
+       return null;
     }
 
-    /** Returns the number of times that the given name appears in the follows lists of all
-     *  the users in this network. Note: A name can appear 0 or 1 times in each list. */
-    private int followeeCount(String name) {
-        //// Replace the following statement with your code
-        return 0;
+/** Returns the number of times that the given name appears in the follows lists of all
+ *  the users in this network. Note: A name can appear 0 or 1 times in each list. */
+
+private int followeeCount(String name) {
+    if (name == null) {
+        return 0; 
     }
+    int appears = 0;
+    for (int i = 0; i < userCount; i++) {
+        if (users[i] != null && users[i].getfFollows() != null) {
+            for (int j = 0; j < users[i].getfFollows().length; j++) { 
+                if (users[i].getfFollows()[j] != null && 
+                    users[i].getfFollows()[j].toLowerCase().equals(name.toLowerCase())) {
+                    appears++;
+                  
+                }
+            }
+        }
+    }
+
+    return appears;
+}
 
  // Returns a textual description of all the users in this network, and who they follow.
 
