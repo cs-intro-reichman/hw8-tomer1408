@@ -101,22 +101,29 @@ public User getUser(String name) {
 
     /** Computes and returns the name of the most popular user in this network: 
      *  The user who appears the most in the follow lists of all the users. */
-    public String mostPopularUser() {
-        String mostPopularUser =  users[0].getName();
-        int i = 1;
-        while ( i < userCount) {
-            if(users[i] == null){
-                return null; 
-            }
-            if(followeeCount(users[i].getName())>followeeCount(users[i-1].getName())){
-                mostPopularUser = users[i].getName();
-                i++;
-            }
 
-            return mostPopularUser;
-        }
-       return null;
+public String mostPopularUser() {
+    if (userCount == 0) {
+        return null; 
     }
+
+    String mostPopularUser = null;
+    int maxFollowCount = -1;
+
+    for (int i = 0; i < userCount; i++) {
+        if (users[i] != null) {
+            int currentFollowCount = followeeCount(users[i].getName());
+
+            if (currentFollowCount > maxFollowCount) {
+                maxFollowCount = currentFollowCount;
+                mostPopularUser = users[i].getName();
+            }
+        }
+    }
+
+    return mostPopularUser;
+}
+
 
 /** Returns the number of times that the given name appears in the follows lists of all
  *  the users in this network. Note: A name can appear 0 or 1 times in each list. */
