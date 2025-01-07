@@ -43,17 +43,54 @@ public User getUser(String name) {
     *  If the given name is already a user in this network, does nothing and returns false;
     *  Otherwise, creates a new user with the given name, adds the user to this network, and returns true. */
     public boolean addUser(String name) {
-        //// Replace the following statement with your code
-        return false;
+        if (name == null ) {
+            return false; 
+        }
+        for (int i = 0; i < this.users.length; i++) {
+            if (users[i] != null && users[i].getName().toLowerCase().equals(name.toLowerCase())) {
+                return false; 
+            }
+        }
+        if (userCount >= users.length) {
+            return false; 
+        }
+    
+        users[userCount] =new  User(name);
+        userCount++;
+        return true;
+        
     }
 
     /** Makes the user with name1 follow the user with name2. If successful, returns true.
      *  If any of the two names is not a user in this network,
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
-        //// Replace the following statement with your code
-        return false;
+ 
+        if (name1 == null || name2 == null || name1.toLowerCase().equals(name2.toLowerCase())) {
+            return false; 
+        }
+
+        User user1 = null; 
+        User user2 = null; 
+
+        for (int i = 0; i < this.users.length; i++) {
+            if (users[i] != null) {
+                if (users[i].getName().toLowerCase().equals(name1.toLowerCase())) {
+                    user1 = users[i];
+                }
+                if (users[i].getName().toLowerCase().equals(name2.toLowerCase())) {
+                    user2 = users[i];
+                }
+            }
+        }
+
+        if (user1 == null || user2 == null) {
+            return false;
+        }
+  
+        return user1.addFollowee(name2);
     }
+    
     
     /** For the user with the given name, recommends another user to follow. The recommended user is
      *  the user that has the maximal mutual number of followees as the user with the given name. */
