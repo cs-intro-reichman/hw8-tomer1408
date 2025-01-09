@@ -95,7 +95,23 @@ public User getUser(String name) {
     /** For the user with the given name, recommends another user to follow. The recommended user is
      *  the user that has the maximal mutual number of followees as the user with the given name. */
     public String recommendWhoToFollow(String name) {
-     
+        //// Replace the following statement with your code
+        User mostRecommendedUserToFollow = null;
+        User currentUser = getUser(name);
+        int recommemd = 0;
+        for (int i=0;i<userCount;i++) {
+            if(users[i].equals(currentUser)) {
+                continue;
+            }
+            int mutualFrineds = currentUser.countMutual(users[i]);
+            if (recommemd < mutualFrineds) {
+                recommemd = mutualFrineds;
+                mostRecommendedUserToFollow = users[i];
+            }
+        }
+        if (mostRecommendedUserToFollow != null) {
+            return mostRecommendedUserToFollow.getName();
+        }
         return null;
     }
 
